@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}About{% endblock title %}
+
+{% block body %}
+
+lets start !!
+<p>output (ansible-playbook streams.yml -u wsadmin --ask-pass -v --extra-vars "host=10.60.48.106 url=http://jfrog.beta-wspbx.com:8082/artifactory/QA-Releases/2022-03-22/Streams/latest/worldsmart_desk.war";)</p>     </br> </br> </br>
+
+<p>output (ansible-playbook streams.yml -u wsadmin --ask-pass -v --extra-vars "host=10.60.48.106 url=http://jfrog.beta-wspbx.com:8082/artifactory/QA-Releases/2022-03-22/Streams/{{build}}/worldsmart_desk.war";)</p>
+<br><br>
+<br>
+http://nagios.beta-wspbx.com/nagios/cgi-bin/extinfo.cgi?type=2&host=beta-148&service=3PCC   <br> <br> <br>
+http://nagios.beta-wspbx.com/nagios/cgi-bin/extinfo.cgi?type=2&host=beta-10.30.48.163&service=Streams   <br> <br> <br>
+http://nagios.beta-wspbx.com/nagios/cgi-bin/extinfo.cgi?type=2&host=beta-153&service=SBAdmin   <br> <br> <br>
+http://nagios.beta-wspbx.com/nagios/cgi-bin/extinfo.cgi?type=2&host=153&service=Admin5
+
+
+
+http://nagios.beta-wspbx.com/nagios/cgi-bin/extinfo.cgi?type=2&host=beta-153&service=SBAdmin
+variable value is <b> {{build}} </b>
+{% endblock body %}
+
+
+

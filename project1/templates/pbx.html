@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}PBX{% endblock title %}
+
+{% block body %}
+This is Services Block
+<div class='container'>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">PBX/TELEPHONY</th>
+        <th scope="col">Beta-1</th>
+        <th scope="col">Beta-2</th>
+        <th scope="col">Beta-3</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">UMS</th>
+        <td>10.30.48.178/10.30.48.33</td>
+        <td>10.30.48.183</td>
+        <td>10.30.48.185</td>
+      </tr>
+      <tr>
+        <th scope="row">WSICP</th>
+        <td>10.60.48.106</td>
+        <td>10.60.48.105</td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <th scope="row">Storageconverter</th>
+        <td>10.30.48.163</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+        <th scope="row">UMSLB/UMSLD</th>
+        <td>10.60.48.106</td>
+        <td>10.60.48.105</td>
+        <td>-</td>
+      </tr>
+        <th scope="row">MSICP</th>
+        <td>10.60.48.106</td>
+        <td>10.60.48.105</td>
+        <td>-</td>
+      </tr>
+        <th scope="row">ACD Engine</th>
+        <td>10.60.48.106</td>
+        <td>10.60.48.105</td>
+        <td>-</td>
+      </tr>
+        <th scope="row">Conference</th>
+        <td>10.60.48.106</td>
+        <td>10.60.48.105</td>
+        <td>-</td>
+      </tr>
+        <th scope="row">Conference/freeswitch</th>
+        <td>10.60.48.76</td>
+        <td>10.60.48.33</td>
+        <td>
+          {% if freeswitch161 == 'Running' %}
+          <div class="ser_nrun">10.30.48.161 </div>
+
+          {% else %}
+          <div class="ser_nrun">10.30.48.161 </div>
+          {% endif %}  
+
+        </td>
+      </tr>
+        <th scope="row">Presence BLA</th>
+        <td>10.60.48.106</td>
+        <td>10.60.48.105</td>
+        <td>-</td>
+      </tr>
+        <th scope="row">WSProxy</th>
+        <td>10.60.48.106</td>
+        <td>10.60.48.105</td>
+        <td>-</td>
+      </tr>
+        <th scope="row">WSICP</th>
+        <td>10.60.48.106</td>
+        <td>10.60.48.105</td>
+        <td>-</td>
+      </tr>
+        <th scope="row">WSICP</th>
+        <td>10.60.48.106</td>
+        <td>10.60.48.105</td>
+        <td>-</td>
+      </tr>
+        <th scope="row">WSICP</th>
+        <td>10.60.48.106</td>
+        <td>10.60.48.105</td>
+        <td>-</td>
+      </tr>
+        <th scope="row">WSICP</th>
+        <td>10.60.48.106</td>
+        <td>10.60.48.105</td>
+        <td>-</td>
+      </tr>
+        <th scope="row">WSICP</th>
+        <td>10.60.48.106</td>
+        <td>10.60.48.105</td>
+        <td>-</td>
+      </tr>
+        <th scope="row">WSICP</th>
+        <td>10.60.48.106</td>
+        <td>10.60.48.105</td>
+        <td>-</td>
+      </tr>
+        <th scope="row">WSICP</th>
+        <td>10.60.48.106</td>
+        <td>10.60.48.105</td>
+        <td>-</td>
+      </tr>
+
+
+    </tbody>
+  </table>
+
+
+
+
+</div>
+
+
+
+{% endblock body %}
