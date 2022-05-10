@@ -3,7 +3,7 @@
 {% block title %}PBX{% endblock title %}
 
 {% block body %}
-This is Services Block
+This is PBX Services Block
 <div class='container'>
   <table class="table">
     <thead class="thead-dark">
@@ -17,15 +17,50 @@ This is Services Block
     <tbody>
       <tr>
         <th scope="row">UMS</th>
-        <td>10.30.48.178/10.30.48.33</td>
-        <td>10.30.48.183</td>
-        <td>10.30.48.185</td>
+        <td>
+          {% if result_wsumserver33 == 'Running' %}
+          <div class="ser_run">10.30.48.33 </div>
+
+          {% else %}
+          <div class="ser_nrun">10.30.48.33</div>
+          {% endif %}          
+        </td>
+        <td>
+          {% if result_wsumserver60 == 'Running' %}
+          <div class="ser_run">10.30.48.60 </div>
+
+          {% else %}
+          <div class="ser_nrun">10.30.48.60</div>
+          {% endif %}  
+        </td>
+        <td>
+          {% if result_wsumserver194 == 'Running' %}
+          <div class="ser_run">10.30.48.194 </div>
+
+          {% else %}
+          <div class="ser_nrun">10.30.48.194</div>
+          {% endif %}  
+        </td>
       </tr>
       <tr>
         <th scope="row">WSICP</th>
-        <td>10.60.48.106</td>
-        <td>10.60.48.105</td>
-        <td>-</td>
+        <td>
+          {% if result_WSICP148 == 'Running' %}
+          <div class="ser_run">10.30.48.148 </div>
+
+          {% else %}
+          <div class="ser_nrun">10.30.48.148</div>
+          {% endif %}  
+        </td>
+        <td>
+          {% if result_WSICP166 == 'Running' %}
+          <div class="ser_run">10.30.48.166 </div>
+
+          {% else %}
+          <div class="ser_nrun">10.30.48.166</div>
+          {% endif %}
+        </td>
+        <td>174/115 No config file in nagios</td>
       </tr>
       <tr>
         <th scope="row">Storageconverter</th>

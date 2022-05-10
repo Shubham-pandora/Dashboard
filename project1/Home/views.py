@@ -15,8 +15,7 @@ def index(request):
     context = {
         'build':"build-Number",
         'ip':"IP"
-    }
-    # return HttpResponse("this is message")
+    }  
     return render(request,'index.html',context)
 
 def output(request):
@@ -42,11 +41,32 @@ def services(request):
    print(build1,build2)
    return render(request, 'services.html',{'build1':build1,'build2':build2})
 
-def pbx(request):    
-    freeswitch161 = 'http://nagios.beta-wspbx.com/nagios/cgi-bin/statusjson.cgi?query=service&hostname=beta-161&servicedescription=Freeswitch'  
-    result_freeswitch = webnagios(freeswitch161)
-    print(result_freeswitch)
-    return render(request, 'pbx.html',{'freeswitch161':result_freeswitch})
+def pbx(request):   
+    service_name_wsumserver = 'wsumserver'
+    wsumserver_instance_ip = ['10.30.48.33','10.30.48.60','10.30.48.194']    
+    wsumserver33 = UrlReturn(service_name_wsumserver, wsumserver_instance_ip[0])
+    result_wsumserver33= webnagios(wsumserver33)        
+    wsumserver60 = UrlReturn(service_name_wsumserver, wsumserver_instance_ip[1])
+    result_wsumserver60= webnagios(wsumserver60)        
+    wsumserver194 = UrlReturn(service_name_wsumserver, wsumserver_instance_ip[2])
+    result_wsumserver194= webnagios(wsumserver194)
+       
+    # Add WSICP service  
+    service_name_WSICP = 'WSICP'
+    WSICP_instance_ip = ['10.30.48.148','10.30.48.166','10.30.48.174']    
+    WSICP148 = UrlReturn(service_name_WSICP, WSICP_instance_ip[0])
+    result_WSICP148= webnagios(WSICP148)
+    WSICP166 = UrlReturn(service_name_WSICP, WSICP_instance_ip[1])
+    result_WSICP166= webnagios(WSICP166)
+    
+    context = {
+    'result_wsumserver33':result_wsumserver33, 
+    'result_wsumserver60':result_wsumserver60, 
+    'result_wsumserver194':result_wsumserver194, 
+    'result_WSICP148':result_WSICP148, 
+    'result_WSICP166':result_WSICP166, 
+    }     
+    return render(request, 'pbx.html',context)
 
 def contact(request):
     if request.method == "POST":
@@ -71,7 +91,7 @@ def web(request):
     result_streams185 = webnagios(streams185)
     print("-----------------------inside webfunction")
     print("178:" + result_streams178 + ",183:" + result_streams183,"185:" + result_streams185) 
-    
+    # Admin5 Service 
     service_name_Admin5 = 'Admin5'
     Admin5_instance_ip = ['10.30.48.153','10.30.48.154','10.30.48.192']
     Admin5153 = UrlReturn(service_name_Admin5, Admin5_instance_ip[0])
@@ -81,10 +101,7 @@ def web(request):
     result_Admin5154 = webnagios(Admin5154)
 
     Admin5192 = UrlReturn(service_name_Admin5, Admin5_instance_ip[2])
-    result_Admin5192 = webnagios(Admin5192)
-    print(result_Admin5192)
-    print("-----------------------inside webfunction")   
-    # print("153:" + result_Admin5153 + ",154:" + result_Admin5154,"192:" + result_Admin5192)
+    result_Admin5192 = webnagios(Admin5192)   
     
     context = {
         'result_streams178':result_streams178,
@@ -92,7 +109,7 @@ def web(request):
         'result_streams185':result_streams185,      
         'result_Admin5153':result_Admin5153,      
         'result_Admin5154':result_Admin5154,      
-        # 'result_Admin5192':result_Admin5192,      
+        'result_Admin5192':result_Admin5192,      
     }     
     return render(request, 'web.html',context)
     # return render(request, 'web.html',{'result_streams178':result_streams178,'result_streams183':result_streams183,'result_streams185':result_streams185})
