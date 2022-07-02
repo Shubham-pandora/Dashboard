@@ -1,25 +1,56 @@
 {% extends 'base.html' %}
 
-{% block title %}About{% endblock title %}
+{% block title %}WEB{% endblock title %}
 
 {% block body %}
+Hi Shubham - web services list
+<div class='container'>
+  <table class="table">
+    <thead class="thead-dark">
+        {% for Streamsb1 in Streamsbeta1 %}
+        {% for Streamsb2 in Streamsbeta2 %}
+        {% for Admin5b1 in Admin5beta1 %}
+        <tr>
+            <th scope="col">WEB</th>
+            <th scope="col">Beta-1</th>
+            <th scope="col">Beta-2</th>
+            <th scope="col">Beta-3</th>
+        </tr>
+        </thead>
+        <tbody>        
+        <tr>
+            <th scope="row">{{ Streamsb1.service_name }}</th>
+            {% comment %} <td><a href="update/{{ x.id }}">{{ x.id }}</td> {% endcomment %}
+            <td>{{ Streamsb1.ip1 }} {{ Streamsb1.ip2 }} {{ Streamsb1.ip3 }} {{ Streamsb1.ip4 }} {{ Streamsb1.ip5 }} </td>
+            <td>{{ Streamsb2.ip1 }} {{ Streamsb2.ip2 }} {{ Streamsb2.ip3 }} {{ Streamsb2.ip4 }} {{ Streamsb2.ip5 }}</td>   
+        </tr>
 
-lets start !!
-<p>output (ansible-playbook streams.yml -u wsadmin --ask-pass -v --extra-vars "host=10.60.48.106 url=http://jfrog.beta-wspbx.com:8082/artifactory/QA-Releases/2022-03-22/Streams/latest/worldsmart_desk.war";)</p>     </br> </br> </br>
+        <tr>
+            <th scope="row">{{ Admin5b1.service_name }}</th>
+            <td>{{ Admin5b1.ip1 }} {{ Admin5b1.ip2 }} {{ Admin5b1.ip3 }} {{ Admin5b1.ip4 }} {{ Admin5beta.ip5 }}</td> 
+            <td>10.60.48.105</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <th scope="row">Partner portal</th>
+            <td>10.60.48.106</td>
+            <td>10.60.48.105</td>
+            <td>-</td>
+        </tr>
 
-<p>output (ansible-playbook streams.yml -u wsadmin --ask-pass -v --extra-vars "host=10.60.48.106 url=http://jfrog.beta-wspbx.com:8082/artifactory/QA-Releases/2022-03-22/Streams/{{build}}/worldsmart_desk.war";)</p>
-<br><br>
-<br>
-http://nagios.beta-wspbx.com/nagios/cgi-bin/extinfo.cgi?type=2&host=beta-148&service=3PCC   <br> <br> <br>
-http://nagios.beta-wspbx.com/nagios/cgi-bin/extinfo.cgi?type=2&host=beta-10.30.48.163&service=Streams   <br> <br> <br>
-http://nagios.beta-wspbx.com/nagios/cgi-bin/extinfo.cgi?type=2&host=beta-153&service=SBAdmin   <br> <br> <br>
-http://nagios.beta-wspbx.com/nagios/cgi-bin/extinfo.cgi?type=2&host=153&service=Admin5
+  
+        {% endfor %}
+        {% endfor %}
+        {% endfor %}
+    </tbody>
+  </table>
 
 
 
-http://nagios.beta-wspbx.com/nagios/cgi-bin/extinfo.cgi?type=2&host=beta-153&service=SBAdmin
-variable value is <b> {{build}} </b>
+
+
+
+
+</div>
+
 {% endblock body %}
-
-
-

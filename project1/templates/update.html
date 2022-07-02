@@ -1,0 +1,12 @@
+<h1>Update record</h1>
+
+<form action="updaterecord/{{ updcontact.id }}" method="post">
+{% csrf_token %}
+Name:<br>
+<input name="name" value="{{ updcontact.name }}">
+<br><br>
+Email:<br>
+<input name="email" value="{{ updcontact.email }}">
+<br><br>
+<input type="submit" value="Submit">
+</form>

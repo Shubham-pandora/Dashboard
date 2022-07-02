@@ -4,7 +4,7 @@ from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, HttpResponse
 from datetime import date, datetime
-from Home.models import Contact, WebBeta1, WebBeta2, WebBeta3,WebBeta4
+from Home.models import Contact
 from django.contrib import messages
 import requests
 from requests.auth import HTTPBasicAuth
@@ -83,22 +83,9 @@ def output(request):
 
 
 def about(request):
-    # Streamsbeta1obj =  list(WebBeta1.objects.values_list('service_name','ip1','ip2','ip3','ip4'))
-    # Streamsbeta1obj =  WebBeta1.objects.filter(service_name='Streams').values()
-    Streamsbeta1 =  list(WebBeta1.objects.filter(service_name='Streams').values())
-    Streamsbeta2 =  list(WebBeta2.objects.filter(service_name='Streams').values())
-    Admin5beta1 =  list(WebBeta1.objects.filter(service_name='Admin5').values())
-    print("$$$$$$$$$$$",Streamsbeta1)  
-    for i in  Streamsbeta1:
-        print(i['service_name'])
-    print("-------------------------------------------") 
-    # print(type(Streamsbeta1)) // list  
-    print(Streamsbeta1[0])      
- 
     context = {
-        'Streamsbeta1':Streamsbeta1,
-        'Streamsbeta2':Streamsbeta2,  
-        'Admin5beta1':Admin5beta1,        
+        'build':"build-Number",
+        'ip':"10.30.48.163"
     }
     return render(request,'about.html',context)
 
@@ -144,64 +131,10 @@ def contact(request):
         messages.success(request, 'Your message has been sent.')
     return render(request,'contact.html')
 
-def web(request):
-    print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-    WebB1 = WebBeta1.objects.all().values()   
-    print(WebB1)
-    # Converted Queryset obj to list
-    i = 0
-    data = []
-    for row in WebB1:
-        while i < len(WebB1):
-            tmp = list((WebB1[i]).values())
-            i = i + 1
-            data.append(tmp)
-    print(data)
-    # Assigned service data accordingly
-    # counter1 = 0
-    # for x in data:
-    #     while counter1 < len(data):
-    #         print(data[counter1][1])
-    #         print(data[counter1][2:])
-    #         counter1 = counter1 + 1      
-    # -------------try below code-------------------
-    counter1 = 0
-    service_status = []
-    service_status_ip = []
-    service_status_name = []
-    for x in data:
-        while counter1 < len(data):
-            service_name = data[counter1][1]
-            service_ip = data[counter1][2:]
-            counter1 = counter1 + 1
-            a = UrlReturn(service_name, service_ip[0])
-            b = UrlReturn(service_name, service_ip[1])
-            c = UrlReturn(service_name, service_ip[2])
-            # d = UrlReturn(service_name, service_ip[3])     
-            # e = UrlReturn(service_name, service_ip[4])
-            # NOTE: write function to check IP is pattern or not , if not , dont run function
-            res1 = webnagios(a)
-            res2 = webnagios(b)
-            res3 = webnagios(c)
-            # res4 = webnagios(d) 
-            # res4 = webnagios(e)
-            service_status.append(res1)
-            service_status_ip.append(service_ip[0])
-            service_status_name.append(service_name)
-            service_status.append(res2)
-            service_status_ip.append(service_ip[1])
-            service_status_name.append(service_name)
-            service_status.append(res3)
-            service_status_ip.append(service_ip[2])
-            service_status_name.append(service_name)
-            print("@@@@@@@@@@@@@@@@@@@",service_name,service_ip)            
-            print('^^^^^^^^^',service_status,service_status_ip,service_status_name)
-            
-            
+def web(request):   
     # streams178 = 'http://nagios.beta-wspbx.com/nagios/cgi-bin/statusjson.cgi?query=service&hostname=10.30.48.178&servicedescription=Streams'
     service_name_Streams = 'Streams'
-    streams_instance_ip = ['10.30.48.178','10.30.48.183','10.30.48.185']   
-    
+    streams_instance_ip = ['10.30.48.178','10.30.48.183','10.30.48.185']
     streams178 = UrlReturn(service_name_Streams, streams_instance_ip[0])
     result_streams178 = webnagios(streams178)
     
@@ -210,8 +143,8 @@ def web(request):
 
     streams185 = UrlReturn(service_name_Streams, streams_instance_ip[2])
     result_streams185 = webnagios(streams185)
-    # print("-----------------------inside webfunction")
-    # print("178:" + result_streams178 + ",183:" + result_streams183,"185:" + result_streams185) 
+    print("-----------------------inside webfunction")
+    print("178:" + result_streams178 + ",183:" + result_streams183,"185:" + result_streams185) 
     # Admin5 Service 
     service_name_Admin5 = 'Admin5'
     Admin5_instance_ip = ['10.30.48.153','10.30.48.154','10.30.48.192']
@@ -222,14 +155,8 @@ def web(request):
     result_Admin5154 = webnagios(Admin5154)
 
     Admin5192 = UrlReturn(service_name_Admin5, Admin5_instance_ip[2])
-    result_Admin5192 = webnagios(Admin5192)      
- 
-    op =  zip(service_status_name, service_status_ip, service_status)
-    print("-------------------------")
-    print(service_status)
-    print(service_status_ip)
-    print(service_status_name)
-    print(list(op))
+    result_Admin5192 = webnagios(Admin5192)   
+    
     context = {
         'result_streams178':result_streams178,
         'result_streams183':result_streams183,      
@@ -237,13 +164,6 @@ def web(request):
         'result_Admin5153':result_Admin5153,      
         'result_Admin5154':result_Admin5154,      
         'result_Admin5192':result_Admin5192,      
-        'data':data,   
-        'service_status':service_status,   
-        'service_status_ip':service_status_ip,
-        'service_status_name':service_status_name,
-        'WebB1':WebB1,  
-        'op' : op,  
-        
     }     
     return render(request, 'web.html',context)
     # return render(request, 'web.html',{'result_streams178':result_streams178,'result_streams183':result_streams183,'result_streams185':result_streams185})
@@ -265,11 +185,11 @@ def webnagios(passing_url):
     sub_str1 ="ok" 
    
     if (string.find(sub_str) != -1) or (string.find(sub_str1) != -1):
-        print("function-webnagios :Yes")
+        print("Yes")
         flag = "Running"
         return flag
     else:
-        print(" function-webnagios : No")
+        print("No")
         flag = "Not Running" 
         return flag      
  

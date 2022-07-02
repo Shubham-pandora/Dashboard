@@ -3,7 +3,40 @@
 {% block title %}WEB{% endblock title %}
 
 {% block body %}
+
+{% for x in service_status %}
+{{x}}
+{% endfor %}
+</br>
+{% for x in service_status_ip %}
+{{x}}
+{% endfor %}
+</br>
+{% for x in service_status_name %}
+{{x}}
+{% endfor %}
+</br>----------------------------------------</br>
+{% for x in WebB1 %}
+<tr> 
+<td>{{ x.id }}</td>
+<td>{{ x.service_name }}</td>
+<td>{{ x.ip1 }}</td>
+<td>{{ x.ip2 }}</td>
+<td>{{ x.ip3 }}</td></br>
+</tr>
+{% endfor %}
+</br>--------------------------------------</br>
+{% for opp in op %}
+   <tr>
+        <td>{{ opp.0 }} </td>
+        <td>{{ opp.1 }}</td>
+        <td>{{ opp.2 }}</td>   </br>         
+  </tr>
+{% endfor %}
+
+
 Hi Shubham - web services list
+class ser_run defined in base template
 <div class='container'>
   <table class="table">
     <thead class="thead-dark">

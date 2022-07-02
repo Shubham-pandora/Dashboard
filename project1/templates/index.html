@@ -12,8 +12,25 @@
  <br>This <strong>Weekend</strong> RRF Version is :  10.50.0.0
  <br>Today's Stagging RRF version : 10.48.0.2</h4>
 
+<h3>----------------------------------------------------------------</h3>
+<h3>from db to template</h3>
+ {{out1}} </br>
+ {{out2}}
+</br></br>
 
 
+ <table border="1">
+    {% for x in mycontact %}
+    <tr>
+    <td><a href="update/{{ x.id }}">{{ x.id }}</a></td>
+    <td>{{ x.name }}</td>
+    <td>{{ x.email }}</td>
+    <td><a href="delete/{{ x.id }}">delete</a></td>
+    </tr>
+    {% endfor %}
+    </table>
+
+</br> </br><p><a href="add/">Add record</a></p>
 
 
 </div>
