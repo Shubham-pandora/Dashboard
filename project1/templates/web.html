@@ -25,14 +25,46 @@
 <td>{{ x.ip3 }}</td></br>
 </tr>
 {% endfor %}
-</br>--------------------------------------</br>
-{% for opp in op %}
+</br>---working-----------------------------------</br>
+{% for opp in finalpass %}
    <tr>
-        <td>{{ opp.0 }} </td>
-        <td>{{ opp.1 }}</td>
-        <td>{{ opp.2 }}</td>   </br>         
+        <td>opp.0opp.0opp.0 </td>
+        <td>{{ opp.1 }} </td>
+        <td>{{ opp.2 }}</td> </br>     
   </tr>
 {% endfor %}
+</br>--------works final----------------------------</br>
+{% for opp in finalpass %}
+  {% for i in opp %}  
+   <tr>
+    <td>{{ i.0 }} </td>
+    <td>{{ i.1 }} </td>
+    <td>{{ i.2 }}</td>      
+  </tr>
+  {% endfor %}</br>
+{% endfor %}
+{% comment %} {{finalpass}} {% endcomment %}
+</br>--------yesss mja aagya---------------------------</br>
+{% for opp in finalpass %}
+  {{opp.0.0}}
+  {% for i in opp %}  
+   <tr>
+    {% comment %} <td>{{ i.0 }} </td> {% endcomment %}
+    {% comment %} <td>{{ i.1 }} </td> {% endcomment %}
+    {% comment %} <td>{{ i.2 }} </td> {% endcomment %}
+    <td>
+      {% if i.2 == 'Running'%}
+      <div class="ser_run">{{ i.1 }} </div>
+
+      {% else %}
+      <div class="ser_nrun">{{ i.1 }} </div>
+      {% endif %} 
+    <td>
+          
+  </tr>
+  {% endfor %}</br>
+{% endfor %}
+</br>------------------------------------</br>
 
 
 Hi Shubham - web services list

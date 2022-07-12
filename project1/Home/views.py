@@ -11,6 +11,7 @@ from requests.auth import HTTPBasicAuth
 from urllib.request import urlopen
 import json
 from django.urls import reverse
+import numpy as np
 
 # Create your views here.
 def index(request):
@@ -147,7 +148,7 @@ def contact(request):
 def web(request):
     print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
     WebB1 = WebBeta1.objects.all().values()   
-    print(WebB1)
+    print(WebB1)    
     # Converted Queryset obj to list
     i = 0
     data = []
@@ -157,32 +158,26 @@ def web(request):
             i = i + 1
             data.append(tmp)
     print(data)
-    # Assigned service data accordingly
-    # counter1 = 0
-    # for x in data:
-    #     while counter1 < len(data):
-    #         print(data[counter1][1])
-    #         print(data[counter1][2:])
-    #         counter1 = counter1 + 1      
-    # -------------try below code-------------------
-    counter1 = 0
+    # Assigned service data(status,ip,servicename)  into 3 list accordingly
+    counter1 = 0    #  number of object /service in WebB1
     service_status = []
     service_status_ip = []
     service_status_name = []
     for x in data:
         while counter1 < len(data):
             service_name = data[counter1][1]
-            service_ip = data[counter1][2:]
+            service_ip = data[counter1][2:]           
             counter1 = counter1 + 1
-            a = UrlReturn(service_name, service_ip[0])
-            b = UrlReturn(service_name, service_ip[1])
-            c = UrlReturn(service_name, service_ip[2])
+            # creating URL for API Hit in nagios
+            serviceurl1 = UrlReturn(service_name, service_ip[0])
+            serviceurl2 = UrlReturn(service_name, service_ip[1])
+            serviceurl3 = UrlReturn(service_name, service_ip[2])
             # d = UrlReturn(service_name, service_ip[3])     
             # e = UrlReturn(service_name, service_ip[4])
             # NOTE: write function to check IP is pattern or not , if not , dont run function
-            res1 = webnagios(a)
-            res2 = webnagios(b)
-            res3 = webnagios(c)
+            res1 = webnagios(serviceurl1)
+            res2 = webnagios(serviceurl2)
+            res3 = webnagios(serviceurl3)
             # res4 = webnagios(d) 
             # res4 = webnagios(e)
             service_status.append(res1)
@@ -200,27 +195,20 @@ def web(request):
             
     # streams178 = 'http://nagios.beta-wspbx.com/nagios/cgi-bin/statusjson.cgi?query=service&hostname=10.30.48.178&servicedescription=Streams'
     service_name_Streams = 'Streams'
-    streams_instance_ip = ['10.30.48.178','10.30.48.183','10.30.48.185']   
-    
+    streams_instance_ip = ['10.30.48.178','10.30.48.183','10.30.48.185']     
     streams178 = UrlReturn(service_name_Streams, streams_instance_ip[0])
-    result_streams178 = webnagios(streams178)
-    
+    result_streams178 = webnagios(streams178)    
     streams183 = UrlReturn(service_name_Streams, streams_instance_ip[1])
     result_streams183 = webnagios(streams183)
-
     streams185 = UrlReturn(service_name_Streams, streams_instance_ip[2])
-    result_streams185 = webnagios(streams185)
-    # print("-----------------------inside webfunction")
-    # print("178:" + result_streams178 + ",183:" + result_streams183,"185:" + result_streams185) 
+    result_streams185 = webnagios(streams185)   
     # Admin5 Service 
     service_name_Admin5 = 'Admin5'
     Admin5_instance_ip = ['10.30.48.153','10.30.48.154','10.30.48.192']
     Admin5153 = UrlReturn(service_name_Admin5, Admin5_instance_ip[0])
-    result_Admin5153 = webnagios(Admin5153)
-    
+    result_Admin5153 = webnagios(Admin5153)    
     Admin5154 = UrlReturn(service_name_Admin5, Admin5_instance_ip[1])
     result_Admin5154 = webnagios(Admin5154)
-
     Admin5192 = UrlReturn(service_name_Admin5, Admin5_instance_ip[2])
     result_Admin5192 = webnagios(Admin5192)      
  
@@ -229,7 +217,12 @@ def web(request):
     print(service_status)
     print(service_status_ip)
     print(service_status_name)
-    print(list(op))
+    print(op)
+    cc = list(op)
+    lengthofservice = len(WebB1)
+    finalpass = np.reshape(cc,(lengthofservice,3,3))
+    print(finalpass)
+ 
     context = {
         'result_streams178':result_streams178,
         'result_streams183':result_streams183,      
@@ -242,7 +235,8 @@ def web(request):
         'service_status_ip':service_status_ip,
         'service_status_name':service_status_name,
         'WebB1':WebB1,  
-        'op' : op,  
+        'aaaa' : op,  
+        'finalpass' : finalpass,  
         
     }     
     return render(request, 'web.html',context)
@@ -257,15 +251,15 @@ def webnagios(passing_url):
     session = requests.Session()
     request = session.get(request_url, auth=HTTPBasicAuth(username,password), verify=False) 
     data_json = json.loads(request.text)   
-    print("----------------------------")
-    print(data_json['data']['service']['plugin_output'])
+    # print("----------------------------")
+    # print(data_json['data']['service']['plugin_output'])
         
     string = data_json['data']['service']['plugin_output']
     sub_str ="OK" 
     sub_str1 ="ok" 
    
     if (string.find(sub_str) != -1) or (string.find(sub_str1) != -1):
-        print("function-webnagios :Yes")
+        # print("function-webnagios :Yes")
         flag = "Running"
         return flag
     else:
