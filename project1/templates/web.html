@@ -54,24 +54,55 @@
     {% comment %} <td>{{ i.2 }} </td> {% endcomment %}
     <td>
       {% if i.2 == 'Running'%}
-      <div class="ser_run">{{ i.1 }} </div>
+      <div class="ser_run">{{ i.1 }} </div>&nbsp;&nbsp;
 
       {% comment %} {% elif i.2 == 'Absent'%}
       <div class="ser_absent"> - </div> {% endcomment %}
     
       {% else %}
-      <div class="ser_nrun">{{ i.1 }} </div>
+      <div class="ser_nrun">{{ i.1 }} </div>&nbsp;&nbsp;
       {% endif %} 
     <td>
           
   </tr>
   {% endfor %}</br>
 {% endfor %}
+
+</br>--------yesss mja aagya 1---------------------------</br>
+<div class='container'>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">WEB</th>
+        <th scope="col">Beta-1</th>
+        <th scope="col">Beta-2</th>
+        <th scope="col">Beta-3</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for opp in finalpass %}
+      <tr>
+        <th scope="row">{{opp.0.0}}</th>
+          {% for i in opp %}  
+              <td>
+                {% if i.2 == 'Running'%}
+                <div class="ser_run">{{ i.1 }} </div>
+
+                {% else %}
+                <div class="ser_nrun">{{ i.1 }} </div>
+                {% endif %} 
+              </td>
+
+          {% endfor %}</br>
+        </tr>  
+        {% endfor %}
+        
+    </tbody>
+  </table>
+</div>
 </br>------------------------------------</br>
 
 
-Hi Shubham - web services list
-class ser_run defined in base template
 <div class='container'>
   <table class="table">
     <thead class="thead-dark">
@@ -207,12 +238,8 @@ class ser_run defined in base template
     </tbody>
   </table>
 
-
-
-
-
-
-
 </div>
-
+Hi Shubham - web services list
+class ser_run defined in base templateHi Shubham - web services list
+class ser_run defined in base template
 {% endblock body %}
