@@ -169,15 +169,42 @@ def web(request):
             service_ip = data[counter1][2:]           
             counter1 = counter1 + 1
             # creating URL for API Hit in nagios
-            serviceurl1 = UrlReturn(service_name, service_ip[0])
-            serviceurl2 = UrlReturn(service_name, service_ip[1])
-            serviceurl3 = UrlReturn(service_name, service_ip[2])
+            if (service_ip[0] != '' ):
+                serviceurl1 = UrlReturn(service_name, service_ip[0])                
+                res1 = webnagios(serviceurl1)                
+            else:
+                res1 = 'Absent'
+                
+            if (service_ip[1] != '' ):
+                serviceurl2 = UrlReturn(service_name, service_ip[1])                
+                res2 = webnagios(serviceurl2)                
+            else:
+                res2 = 'Absent'
+            if (service_ip[2] != '' ):
+                serviceurl3 = UrlReturn(service_name, service_ip[2])                
+                res3 = webnagios(serviceurl3)                
+            else:
+                res3 = 'Absent'
+            if (service_ip[3] != '' ):
+                serviceurl4 = UrlReturn(service_name, service_ip[2])                
+                res4 = webnagios(serviceurl4)                
+            else:
+                res4 = 'no'
+            if (service_ip[4] != '' ):
+                serviceurl5 = UrlReturn(service_name, service_ip[2])                
+                res5 = webnagios(serviceurl5)                
+            else:
+                res5 = 'no'
+                
+            # serviceurl1 = UrlReturn(service_name, service_ip[0])
+            # serviceurl2 = UrlReturn(service_name, service_ip[1])
+            # serviceurl3 = UrlReturn(service_name, service_ip[2])
             # d = UrlReturn(service_name, service_ip[3])     
             # e = UrlReturn(service_name, service_ip[4])
             # NOTE: write function to check IP is pattern or not , if not , dont run function
-            res1 = webnagios(serviceurl1)
-            res2 = webnagios(serviceurl2)
-            res3 = webnagios(serviceurl3)
+            # res1 = webnagios(serviceurl1)
+            # res2 = webnagios(serviceurl2)
+            # res3 = webnagios(serviceurl3)
             # res4 = webnagios(d) 
             # res4 = webnagios(e)
             service_status.append(res1)
@@ -188,6 +215,12 @@ def web(request):
             service_status_name.append(service_name)
             service_status.append(res3)
             service_status_ip.append(service_ip[2])
+            service_status_name.append(service_name)
+            service_status.append(res4)
+            service_status_ip.append(service_ip[3])
+            service_status_name.append(service_name)
+            service_status.append(res5)
+            service_status_ip.append(service_ip[4])
             service_status_name.append(service_name)
             print("@@@@@@@@@@@@@@@@@@@",service_name,service_ip)            
             print('^^^^^^^^^',service_status,service_status_ip,service_status_name)
@@ -219,8 +252,9 @@ def web(request):
     print(service_status_name)
     print(op)
     cc = list(op)
+    print(cc)
     lengthofservice = len(WebB1)
-    finalpass = np.reshape(cc,(lengthofservice,3,3))
+    finalpass = np.reshape(cc,(lengthofservice,5,3))
     print(finalpass)
  
     context = {
