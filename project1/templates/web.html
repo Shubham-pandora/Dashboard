@@ -56,6 +56,9 @@
       {% if i.2 == 'Running'%}
       <div class="ser_run">{{ i.1 }} </div>
 
+      {% comment %} {% elif i.2 == 'Absent'%}
+      <div class="ser_absent"> - </div> {% endcomment %}
+    
       {% else %}
       <div class="ser_nrun">{{ i.1 }} </div>
       {% endif %} 
