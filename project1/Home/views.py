@@ -528,14 +528,23 @@ def update_Spark(passing_url):
         return(resp.status_code) 
     
 # ------------update record beta prod CRUD -------------
+import requests
+from bs4 import BeautifulSoup
+
 def update_activemq(passing_url):  
-    resp=requests.get(passing_url)
-    if resp.status_code==200:      
-        soup=BeautifulSoup(resp.text,'html.parser')        
-        l=soup.find("h4") 
-        return(l.text)        
+    resp = requests.get(passing_url)
+    if resp.status_code == 200:      
+        soup = BeautifulSoup(resp.text, 'html.parser')        
+        table = soup.find('table')
+        for row in table.find('tbody').find_all('tr'):
+            cols = row.find_all('td')
+            if len(cols) >= 3:
+                status = cols[1].text.strip()
+                if "Stable" in status and "Supported" in status:
+                    return cols[2].text.strip()
+        return "Stable version not found"
     else:
-        return(resp.status_code)
+        return resp.status_code
 
 def cert_expiry(request):
     # Only works on Linux with OpenSSL and correct paths!
