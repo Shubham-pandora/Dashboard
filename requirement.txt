@@ -1,0 +1,15 @@
+asgiref
+beautifulsoup4
+bs4
+certifi
+charset-normalizer
+Django
+idna
+numpy
+Pillow
+python-nmap
+requests
+soupsieve
+sqlparse
+typing_extensions==4.7.1
+urllib3
