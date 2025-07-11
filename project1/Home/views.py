@@ -485,14 +485,19 @@ def update_Hadoop(passing_url):
     
 
 def update_ZooKeeper(passing_url):     
-    resp=requests.get(passing_url)
-    if resp.status_code==200:      
-        soup=BeautifulSoup(resp.text,'html.parser')        
-        l=soup.find("div",{"class":"container"})       
-        m = l.find_all("p")[4]
-        return(m.text)                 
+    resp = requests.get(passing_url)
+    if resp.status_code == 200:      
+        soup = BeautifulSoup(resp.text, 'html.parser')        
+        container = soup.find("div", {"class": "container"})       
+        if container:
+            stable_header = container.find("h3", string=lambda s: s and "latest stable release" in s)
+            if stable_header:
+                return stable_header.text.strip()
+            else:
+                return "Stable release info not found"
+        return "Container div not found"
     else:
-        return(resp.status_code) 
+        return resp.status_code 
 
 # -------------Tomcat --------------
 def update_tomcat(passing_url):    
