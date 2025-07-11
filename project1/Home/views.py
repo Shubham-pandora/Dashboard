@@ -59,7 +59,7 @@ def checkupdate(request):
     result_ZooKeeper = update_ZooKeeper("https://zookeeper.apache.org/releases.html")
     result_Spark = update_Spark("https://spark.apache.org/downloads.html")
     result_tomcat = update_tomcat("https://tomcat.apache.org/")
-    result_java = update_java("https://www.oracle.com/in/java/technologies/java-se-glance.html")
+    result_java = update_java("https://www.oracle.com/in/java/technologies/downloads/#java21")
     result_activemq = update_activemq("https://activemq.apache.org/components/classic/download/")
     
     objNewUpdateInfo = NewUpdateInfo.objects.all().values() 
@@ -507,15 +507,19 @@ def update_tomcat(passing_url):
 
 # -------------JAVA -------------
 def update_java(passing_url): 
-    resp=requests.get(passing_url)
-    if resp.status_code==200:      
-        soup=BeautifulSoup(resp.text,'html.parser')        
-        l=soup.find("ul",{"class":"cta-list"})    
-        m = l.find_all("li")[0]
-        n = m.find("p")        
-        return(n.text)        
+    resp = requests.get(passing_url)
+    if resp.status_code == 200:      
+        soup = BeautifulSoup(resp.text, 'html.parser')        
+
+        # Find the heading that contains the JDK version for Java 21
+        heading = soup.find(lambda tag: tag.name in ["h2", "h3"] and "Java SE Development Kit 21" in tag.text)
+
+        if heading:
+            return heading.text.strip()
+        else:
+            return "Version info not found"
     else:
-        return(resp.status_code) 
+        return resp.status_code
     
 # -------------Apache Spark -------------
 def update_Spark(passing_url):  
