@@ -2,17 +2,21 @@
 
 {% block body %}
 <div class="container mt-4">
-    <h2>Certificate Expiry Information</h2>
-    <hr>
-    <div>
-        {% if expiry_info %}
-            {{ expiry_info|safe }}
-        {% else %}
-            <div class="alert alert-info">
-                Certificate expiry check is not available in this environment (e.g., Windows/dev).<br>
-                This feature works only on Linux with OpenSSL installed.
-            </div>
-        {% endif %}
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h4>Certificate Expiry Information</h4>
+        </div>
+        <div class="card-body">
+            {% if expiry_info %}
+                <div style="font-size:1.1em;">
+                    {{ expiry_info|safe }}
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    No certificate information available.
+                </div>
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}
