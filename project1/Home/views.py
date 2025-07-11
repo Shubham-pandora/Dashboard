@@ -578,6 +578,18 @@ def cert_expiry(request):
     cert_files = {
         "cfgtre.beta-wspbx.com.crt": "/opt/Dashboard-linux/project1/extra/cfgtre.beta-wspbx.com.crt",
         "fwdin.beta-wspbx.com.crt": "/opt/Dashboard-linux/project1/extra/fwdin.beta-wspbx.com.crt",
+        "mp88.beta-wspbx.com.crt": "/opt/Dashboard-linux/project1/extra/mp88.beta-wspbx.com.crt",
+        "p101.beta-wspbx.com.crt": "/opt/Dashboard-linux/project1/extra/p101.beta-wspbx.com.crt",
+        "p103.beta-wspbx.com.crt": "/opt/Dashboard-linux/project1/extra/p103.beta-wspbx.com.crt",
+        "p104.beta-wspbx.com.crt": "/opt/Dashboard-linux/project1/extra/p104.beta-wspbx.com.crt",
+        "p107.beta-wspbx.com.crt": "/opt/Dashboard-linux/project1/extra/p107.beta-wspbx.com.crt",
+        "p201.beta-wspbx.com.crt": "/opt/Dashboard-linux/project1/extra/p201.beta-wspbx.com.crt",
+        "p801.beta-wspbx.com.crt": "/opt/Dashboard-linux/project1/extra/p801.beta-wspbx.com.crt",
+        "SANp103.beta-wspbx.com.crt": "/opt/Dashboard-linux/project1/extra/SANp103.beta-wspbx.com.crt",
+        "sms-wspbx-com.crt": "/opt/Dashboard-linux/project1/extra/sms-wspbx-com.crt",
+        "wild.beta-wspbx.com.crt": "/opt/Dashboard-linux/project1/extra/wild.beta-wspbx.com.crt",
+        "clients.crt": "/opt/Dashboard-linux/project1/extra/clients.crt",
+
         # ... add other certs ...
     }
 
