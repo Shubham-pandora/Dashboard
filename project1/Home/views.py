@@ -528,13 +528,17 @@ def update_java(passing_url):
     
 # -------------Apache Spark -------------
 def update_Spark(passing_url):  
-    resp=requests.get(passing_url)
-    if resp.status_code==200:      
-        soup=BeautifulSoup(resp.text,'html.parser')        
-        l=soup.find("pre",{"class":"highlight"}) 
-        return(l.text)        
+    resp = requests.get(passing_url)
+    if resp.status_code == 200:      
+        soup = BeautifulSoup(resp.text, 'html.parser')        
+        news_box = soup.find("div", class_="news")
+        if news_box:
+            latest = news_box.find("li")
+            if latest and latest.a:
+                return latest.a.text.strip()
+        return "Spark version not found"
     else:
-        return(resp.status_code) 
+        return resp.status_code
     
 # ------------update record beta prod CRUD -------------
 import requests
