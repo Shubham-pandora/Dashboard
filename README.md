@@ -16,15 +16,6 @@ python manage.py migrate
 Dashboard - nohup python manage.py  runserver 0.0.0.0.8000
 
 
-cd /opt/Nessus_Map
 
-cd Nessus_Map-BETA
-nohup python manage.py  runserver 0.0.0.0:9001
 
-Nessus_Map-ALL		nohup python manage.py  runserver 0.0.0.0:9000
 
-Nessus_Map-BETA		nohup python manage.py  runserver 0.0.0.0:9001
-
-Nessus_Map-DCE		nohup python manage.py  runserver 0.0.0.0:9002
-
-Nessus_Map-DCW		nohup python manage.py  runserver 0.0.0.0:9003
