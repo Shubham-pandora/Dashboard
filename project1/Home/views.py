@@ -61,6 +61,7 @@ def checkupdate(request):
     result_tomcat = update_tomcat("https://tomcat.apache.org/")
     result_java = update_java("https://www.oracle.com/in/java/technologies/downloads/#java21")
     result_activemq = update_activemq("https://activemq.apache.org/components/classic/download/")
+    result_nodejs = update_nodejs("https://nodejs.org/download/release/")
     
     objNewUpdateInfo = NewUpdateInfo.objects.all().values() 
     # print(objNewUpdateInfo)
@@ -74,8 +75,8 @@ def checkupdate(request):
        'result_tomcat':result_tomcat,    
        'result_java':result_java,    
        'result_activemq':result_activemq,    
+       'result_nodejs':result_nodejs,         
        'objNewUpdateInfo':objNewUpdateInfo,  
-       
    }        
     return render(request,'checkupdate.html',context)
 
@@ -558,6 +559,16 @@ def update_activemq(passing_url):
         return "Stable version not found"
     else:
         return resp.status_code
+    
+def update_nodejs(url):
+    r = requests.get(url)
+    if r.status_code != 200: return r.status_code
+
+    soup = BeautifulSoup(r.text, 'html.parser')
+    matches = [int(m.group(1)) for a in soup.find_all('a', href=True)
+               if (m := re.match(r"v20\.19\.(\d+)/", a['href']))]
+
+    return f"v20.19.{max(matches)}" if matches else "No v20.19.x versions found"
 
 def cert_expiry(request):
     # Only works on Linux with OpenSSL and correct paths!
