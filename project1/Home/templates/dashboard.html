@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock title %}
+{% block body %}
+<div class="container mt-5">
+    <h2>Welcome {{ user.username }}</h2>
+    <p>This is the dashboard. Only visible to logged-in users.</p>
+
+<ul class="list-group">
+    <!-- External link -->
+    <li class="list-group-item">
+      <a href="http://192.168.0.49:9091/" target="_blank">Jenkins-PBX</a>
+    </li>
+    <li class="list-group-item">
+      <a href="http://192.168.1.243:9091/" target="_blank">Jenkins-WEB</a>
+    </li>
+
+    <!-- Internal Django view link -->
+    <li class="list-group-item">
+      <a href="{% url 'cert_expiry' %}">Certificate Expiry Checker</a>
+    </li>
+
+  </ul>
+
+</div>
+{% endblock body %}

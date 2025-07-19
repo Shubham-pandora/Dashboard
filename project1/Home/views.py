@@ -1,3 +1,6 @@
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from cgitb import html
 from multiprocessing import context
 from django.template import loader
@@ -25,6 +28,26 @@ import datetime
 
 # Create your views here.
 
+def custom_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('dashboard')  # After login, redirect to protected page
+        else:
+            messages.error(request, 'Invalid username or password')
+            return redirect('index')  # Stay on homepage
+
+def custom_logout(request):
+    logout(request)
+    return redirect('index')
+
+@login_required
+def dashboard(request):
+    return render(request, 'dashboard.html')
 
 def index(request):
 

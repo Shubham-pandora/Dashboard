@@ -20,6 +20,9 @@ urlpatterns = [
     path('checkupdate/update/updaterecord/<int:id>', views.updaterecordNewUpdateInfo, name='updaterecordinNewUpdateInfo'),
     path("loading", views.loading, name='loading'),  # Add this line
     path('cert-expiry/', views.cert_expiry, name='cert_expiry'),
+    path('login/', views.custom_login, name='custom_login'),
+    path('logout/', views.custom_logout, name='custom_logout'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     # ---------------sample 
   
 ]
